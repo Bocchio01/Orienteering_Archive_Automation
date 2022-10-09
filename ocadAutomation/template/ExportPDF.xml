@@ -1,0 +1,14 @@
+<File.Export>
+    <File></File>
+    <Format>PDF</Format>
+    <PartOfMap>
+        <Enabled>true</Enabled>
+        <Coordinates>mm</Coordinates>
+        <L></L>
+        <R></R>
+        <B></B>
+        <T></T>
+    </PartOfMap>
+    <ExportScale></ExportScale>
+    <Colors>normal</Colors>
+</File.Export>

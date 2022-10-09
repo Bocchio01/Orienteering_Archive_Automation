@@ -1,0 +1,23 @@
+<File.Export>
+    <File></File>
+    <Format>GIF</Format>
+    <Quality>100</Quality>
+    <Resolution>150</Resolution>
+    <Anti-Aliasing>true</Anti-Aliasing>
+    <ColorCorrection>true</ColorCorrection>
+    <PartOfMap>
+        <Enabled>true</Enabled>
+        <Coordinates>mm</Coordinates>
+        <L></L>
+        <R></R>
+        <B></B>
+        <T></T>
+    </PartOfMap>
+    <Tiles>
+        <Enabled>false</Enabled>
+    </Tiles>
+    <GeoRef>
+        <Enabled>true</Enabled>
+        <CreateWorldFile>true</CreateWorldFile>
+    </GeoRef>
+</File.Export>
