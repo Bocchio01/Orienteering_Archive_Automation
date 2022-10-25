@@ -1,1 +1,0 @@
-"C:\Program Files (x86)\OCAD\OCAD 12\OCAD 12 Mapping Solution_32bit.exe" "C:\Users\Bocchio\Documents\MEGAsync\Orienteering\Carte\Parco Negretti\API\Export.xml"

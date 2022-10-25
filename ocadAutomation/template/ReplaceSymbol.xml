@@ -1,0 +1,17 @@
+<OcadScript>
+
+    <Map.LoadSymbolsFrom>
+        <File>C:\Users\Bocchio\Documents\MEGAsync\Orienteering\Carte\_Template OriComo\Impaginazione OriComo.ocd</File>
+    </Map.LoadSymbolsFrom>
+
+    <File.Import.Ocd>
+        <File>C:\Users\Bocchio\Documents\MEGAsync\Orienteering\Carte\_Template OriComo\Impaginazione OriComo.ocd</File>
+        <SymbolOption>0</SymbolOption>
+        <ColorOption>0</ColorOption>
+    </File.Import.Ocd>
+
+    <Map.OptimizeRepair>
+        <Enabled>true</Enabled>
+    </Map.OptimizeRepair>
+
+</OcadScript>
