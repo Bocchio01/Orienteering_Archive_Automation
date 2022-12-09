@@ -1,7 +1,13 @@
 ocad2geojson-2.1.12
-**/Dropbox_example
-mappe_trent-o.kml
-**/_test
+**/_*
+commons
+controllers
+models
+assets
+views
+app.py
+.github
+GUI
 
 # Node gitignore
 **/node_modules/

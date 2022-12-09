@@ -20,13 +20,16 @@ for file_path in file_list:
 
     file_name, file_extension = os.path.splitext(os.path.basename(file_path))
     dir_name = os.path.dirname(file_path)
+    dir_name = dir_name.replace('/', '\\')
 
     data_file = open(os.sep.join([dir_name, 'API', 'mapData.json']))
-    data = json.load(data_file)
+    data = json.load(data_file)['mapDatas']
     data_file.close()
 
+    # print(data)
+
     # fileScale = [int(x) for x in file_name.split(' ') if x.isnumeric()][0]
-    if (data['exportPaperCoordinates']):
+    if (data['boundBox']):
         OcadScript = ET.Element("OcadScript")
         fileOpen = ET.SubElement(OcadScript, "File.Open")
         ET.SubElement(fileOpen, "File").text = os.sep.join(
@@ -40,30 +43,32 @@ for file_path in file_list:
             [dir_name, 'API', file_name + ".pdf"])
         PARTOFMAP = rootPDF.find('PartOfMap')
         PARTOFMAP.find('L').text = str(
-            data['exportPaperCoordinates']['l']).replace('.', ',')
+            data['boundBox']['l']).replace('.', ',')
         PARTOFMAP.find('R').text = str(
-            data['exportPaperCoordinates']['r']).replace('.', ',')
+            data['boundBox']['r']).replace('.', ',')
         PARTOFMAP.find('B').text = str(
-            data['exportPaperCoordinates']['b']).replace('.', ',')
+            data['boundBox']['b']).replace('.', ',')
         PARTOFMAP.find('T').text = str(
-            data['exportPaperCoordinates']['t']).replace('.', ',')
-        rootPDF.find('ExportScale').text = str(data['coordinateSystem']['m'])
+            data['boundBox']['t']).replace('.', ',')
+        rootPDF.find('ExportScale').text = str(data['coordSystem']['m'])
 
         # GIF export
         treeGIF = ET.parse('./ocadAutomation/template/ExportGIF.xml')
         rootGIF = treeGIF.getroot()
 
         rootGIF.find('File').text = os.sep.join(
-            [dir_name, 'API', file_name + ".gif"])
+            # [dir_name, 'API', file_name + ".gif"]
+            ['C:/Users/Bocchio/Dropbox/Applicazioni/BocchioDevApp/Img', file_name + ".gif"]
+        )
         PARTOFMAP = rootGIF.find('PartOfMap')
         PARTOFMAP.find('L').text = str(
-            data['exportPaperCoordinates']['l']).replace('.', ',')
+            data['boundBox']['l']).replace('.', ',')
         PARTOFMAP.find('R').text = str(
-            data['exportPaperCoordinates']['r']).replace('.', ',')
+            data['boundBox']['r']).replace('.', ',')
         PARTOFMAP.find('B').text = str(
-            data['exportPaperCoordinates']['b']).replace('.', ',')
+            data['boundBox']['b']).replace('.', ',')
         PARTOFMAP.find('T').text = str(
-            data['exportPaperCoordinates']['t']).replace('.', ',')
+            data['boundBox']['t']).replace('.', ',')
 
         # Append filled template to OcadScript node
         OcadScript.append(rootPDF)

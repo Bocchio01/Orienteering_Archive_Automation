@@ -129,7 +129,8 @@ folders_to_exclude = [
     '_QGIS',
     '_Simbologia',
     '_protected',
-    'API'
+    'API',
+    'Lieto Colle'
 ]
 
 folders_target = [
@@ -189,6 +190,7 @@ for index, folder in enumerate(folders_target):
             'mapName': name_folder,
             'mapFile': mapFile if type(mapFile) is str else None,
             'impFile': impFile if type(impFile) is str else None,
+            'expFile': mapFile.split('.')[0] + '.gif' if type(mapFile) is str else None,
             'mapNotes': getMapNotes(os.sep.join([folder, mapFile])) if type(mapFile) is str else None
         },
         'coordSystem': getCoordSystem(os.sep.join([folder, mapFile])) if type(mapFile) is str else None,
@@ -208,5 +210,5 @@ for index, folder in enumerate(folders_target):
 with open(os.sep.join([base_file_path, 'mapData.json']), "w") as outfile:
     formatJson(outfile)
 
-with open(os.sep.join([r'C:\Users\Bocchio\Dropbox\Applicazioni\BocchioDevApp', 'mapData.json']), "w") as outfile:
+with open(os.sep.join([r'C:/Users/Bocchio/Dropbox/Applicazioni/BocchioDevApp', 'mapData.json']), "w") as outfile:
     formatJson(outfile)
