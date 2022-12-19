@@ -58,7 +58,8 @@ for file_path in file_list:
 
         rootGIF.find('File').text = os.sep.join(
             # [dir_name, 'API', file_name + ".gif"]
-            ['C:/Users/Bocchio/Dropbox/Applicazioni/BocchioDevApp/Img', file_name + ".gif"]
+            ['C:/Users/Bocchio/Dropbox/Applicazioni/BocchioDevApp/MapsGif',
+                file_name + ".gif"]
         )
         PARTOFMAP = rootGIF.find('PartOfMap')
         PARTOFMAP.find('L').text = str(

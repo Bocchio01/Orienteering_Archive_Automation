@@ -1,7 +1,7 @@
 <OcadScript>
 
     <File.New>
-        <File>C:\Users\Bocchio\Documents\MEGAsync\Orienteering\Carte\_Template OriComo\Impaginazione OriComo.ocd</File>
+        <File>C:\Users\Bocchio\Documents\MEGAsync\Orienteering\Carte\_Simbologia\OriComo\Impaginazione OriComo.ocd</File>
     </File.New>
 
     <BackgroundMap.Open>
@@ -9,7 +9,7 @@
     </BackgroundMap.Open>
 
     <File.Import.Ocd>
-        <File>C:\Users\Bocchio\Documents\MEGAsync\Orienteering\Carte\_Template OriComo\Impaginazione OriComo.ocd</File>
+        <File>C:\Users\Bocchio\Documents\MEGAsync\Orienteering\Carte\_Simbologia\OriComo\Impaginazione OriComo.ocd</File>
         <SymbolOption>0</SymbolOption>
         <ColorOption>0</ColorOption>
     </File.Import.Ocd>

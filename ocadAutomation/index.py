@@ -129,8 +129,7 @@ folders_to_exclude = [
     '_QGIS',
     '_Simbologia',
     '_protected',
-    'API',
-    'Lieto Colle'
+    'API'
 ]
 
 folders_target = [

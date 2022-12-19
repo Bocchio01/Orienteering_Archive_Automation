@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "dropbox": "^10.33.0",
-    "plotty": "^0.4.9"
-  }
-}
