@@ -1,13 +1,4 @@
-ocad2geojson-2.1.12
 **/_*
-commons
-controllers
-models
-assets
-views
-app.py
-.github
-GUI
 
 # Node gitignore
 **/node_modules/
