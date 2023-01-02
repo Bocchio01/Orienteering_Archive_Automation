@@ -8,7 +8,7 @@
 			"name": "Python: from entry point APP.PY",
 			"type": "python",
 			"request": "launch",
-			"program": "C:\\Users\\Bocchio\\Documents\\GitHub\\Orienteering_Archieve_Automation\\app.py",
+			"program": "C:\\Users\\Bocchio\\Documents\\GitHub\\Orienteering_Archive_Automation\\app.py",
 			"console": "integratedTerminal",
 			"justMyCode": true
 		}

@@ -1,4 +1,6 @@
 from enum import IntEnum
+import os
+from typing import Sized
 from ocad import ocad
 
 
@@ -9,6 +11,10 @@ class OCADFilter(IntEnum):
 
 
 def get_query(ocdFile: str, filter: int):
+
+    if not os.path.isfile(ocdFile):
+        raise FileNotFoundError
+
     query = ocad._get_ocad_strings(
         ocdFile,
         output_typ="dict",
@@ -27,7 +33,7 @@ def getCoordSystem(ocdFile: str) -> None | dict:
         filter=OCADFilter.COORDSYSTEM.value
     )
 
-    if len(coordinate_system) > 0:
+    if isinstance(coordinate_system, Sized) and len(coordinate_system) > 0:
         coordinate_system = coordinate_system[0].split("\t")
         coordinate_system_dict = dict(
             (x[0], x[1:])
@@ -35,8 +41,7 @@ def getCoordSystem(ocdFile: str) -> None | dict:
         )
         return coordinate_system_dict
     else:
-        print(
-            f"File '{ocdFile}' doesn't have any coordinate system associated")
+        return {'Info': 'No coordinate system found'}
 
 
 def getBoundBox(ocdFile: str) -> None | dict:
@@ -45,7 +50,7 @@ def getBoundBox(ocdFile: str) -> None | dict:
         filter=OCADFilter.BOUNDBOX.value
     )
 
-    if len(export_boundaries) > 0:
+    if isinstance(export_boundaries, Sized) and len(export_boundaries) > 0:
         export_boundaries = export_boundaries[0].split("\t")
 
         # We divide by factor 25600 because of Ocad Unit. The result is a paper coordinate
@@ -58,8 +63,7 @@ def getBoundBox(ocdFile: str) -> None | dict:
         }
         return export_boundaries_dict
     else:
-        print(
-            f"File '{ocdFile}' doesn't have any default export boundaries associated")
+        return {'Info': 'No default export boundaries found'}
 
 
 def getMapNotes(ocdFile: str) -> None | str:
@@ -68,8 +72,12 @@ def getMapNotes(ocdFile: str) -> None | str:
         filter=OCADFilter.MAPNOTES.value
     )
 
-    if len(map_notes) > 0:
+    if isinstance(map_notes, Sized) and len(map_notes) > 0:
         map_notes = map_notes[0].replace("\r\n", "<br />")
         return map_notes
     else:
-        print(f"File '{ocdFile}' doesn't have any map notes associated")
+        return 'Info: No map notes found'
+
+
+if __name__ == "__main__":
+    pass
