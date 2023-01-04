@@ -19,6 +19,16 @@
             "family": "calibri",
             "size": 14,
             "weight": "bold"
+        },
+        "font_title": {
+            "family": "calibri",
+            "size": 25,
+            "weight": "bold"
+        },
+        "font_subtitle": {
+            "family": "calibri",
+            "size": 12,
+            "weight": "normal"
         }
     },
     "MEGA": {

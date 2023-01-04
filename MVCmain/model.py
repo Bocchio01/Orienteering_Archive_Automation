@@ -3,6 +3,7 @@ from tkinter import font
 
 from MVCmain.observable import Observable
 from Utils.TypingHint.settings import GUIType
+from Utils.variable import DEBUG
 
 
 class Model:
@@ -53,6 +54,23 @@ class Model:
                 'borderwidth': 2,
                 'relief': 'solid'
             }
+            opt['title_config'] = {
+                'bg': opt['bg_general'],
+                'font': font.Font(**opt['font_title'])
+            }
+            opt['subtitle_config'] = {
+                'bg': opt['bg_general'],
+                'font': font.Font(**opt['font_subtitle'])
+            }
+
+            if DEBUG:
+                for el in opt:
+                    if isinstance(opt[el], dict):
+                        opt[el] = {
+                            **opt[el],
+                            'borderwidth': 2,
+                            'relief': 'solid'
+                        }
 
             self.gui_opt.set(opt)
 

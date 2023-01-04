@@ -28,6 +28,8 @@ class MapDetailController:
 
 
 class MapDetailView(tk.Frame):
+    TAG = 'Map Detail'
+
     def __init__(self, master: tk.Tk, opt: GUIType):
 
         tk.Frame.__init__(

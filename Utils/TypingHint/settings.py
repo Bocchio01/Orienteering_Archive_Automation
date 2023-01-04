@@ -19,7 +19,7 @@ class VisualizerType(TypedDict):
 class FontType(TypedDict):
     family: str
     size: int
-    weight: str
+    weight: Literal['normal'] | Literal['bold']
 
 
 class TextConfigType(TypedDict):
@@ -52,3 +52,6 @@ class GUIType(TypedDict):
     button_config: TextConfigType
     combobox_config: ComboboxType
     main_frame: MainFrameType
+
+    title_config: TextConfigType
+    subtitle_config: TextConfigType

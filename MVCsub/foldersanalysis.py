@@ -5,6 +5,7 @@ from tkinter import ttk
 import glob
 
 from MVCmain.ABC import ABCController
+from Utils.multiframetemplate import TwoFrameView
 from Utils.observable import Observable
 from Utils.TypingHint.settings import GUIType
 import Utils.ocadinterface as OCAD
@@ -33,8 +34,13 @@ class FoldersAnalysisController:
         )
 
         self.view.tree.bind(
-            '<<TreeviewSelect>>',
+            '<Double-Button-1>',
             self.item_selected
+        )
+        self.view.entry.bind(
+            '<KeyRelease>',
+            lambda e: self.view.search_by_map_name(
+                self.view.entry.get('1.0', 'end-1c'))
         )
 
     def item_selected(self, event):
@@ -45,21 +51,23 @@ class FoldersAnalysisController:
         self.model.scan()
 
 
-class FoldersAnalysisView(tk.Frame):
+class FoldersAnalysisView(TwoFrameView):
+    TAG = 'Folder Analysis'
+
     def __init__(self, master: tk.Tk, opt: GUIType):
 
-        tk.Frame.__init__(
-            self,
-            master=master,
-            **opt['main_frame']
+        TwoFrameView.__init__(self, master=master, opt=opt)
+
+        self.entry = tk.Text(self.left_frame, height=3, width=10)
+        self.refresh = tk.Button(
+            self.left_frame, text='Refrech', **opt['button_config'])
+
+        self.tree = ttk.Treeview(self.right_frame, show='headings')
+        self.scrollbar = ttk.Scrollbar(
+            self.right_frame,
+            orient=tk.VERTICAL,
+            command=self.tree.yview
         )
-
-        self.entry = tk.Text(self, height=3)
-        self.refresh = tk.Button(self, text='Refrech', **opt['button_config'])
-
-        self.tree = ttk.Treeview(self, show='headings')
-        scrollbar = ttk.Scrollbar(
-            self, orient=tk.VERTICAL, command=self.tree.yview)
 
         columns = ('Map_Name', 'is_folder_ok')
         self.tree["columns"] = columns
@@ -67,22 +75,13 @@ class FoldersAnalysisView(tk.Frame):
         self.tree.heading(columns[0], text=columns[0])
         self.tree.heading(columns[1], text=columns[1])
 
-        self.tree.configure(yscroll=scrollbar.set)
+        self.tree.configure(yscroll=self.scrollbar.set)
 
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_rowconfigure(2, weight=1)
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(2, weight=1)
+        self.entry.pack()
+        self.refresh.pack()
 
-        self.entry.grid(row=0, column=0)
-        self.refresh.grid(row=0, column=1)
-        self.tree.grid(row=1, column=0, sticky='nesw')
-        scrollbar.grid(row=1, column=1, sticky='ns')
-
-        self.entry.bind(
-            '<KeyRelease>',
-            lambda e: self.search_by_map_name(self.entry.get('1.0', 'end-1c'))
-        )
+        self.tree.pack(fill=tk.BOTH, expand=True, side=tk.LEFT)
+        self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
     def update_list(self, map_datas: list[str]) -> None:
         for row in self.tree.get_children():

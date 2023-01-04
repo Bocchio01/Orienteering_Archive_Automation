@@ -11,10 +11,10 @@ class MainView:
 
         self.menu_bar = tk.Menu(self.root, tearoff=0)
 
-    def add_view_to_menu_bar(self, view: tk.Frame):
+    def add_view_to_menu_bar(self, view):
 
         self.menu_bar.add_command(
-            label=view.__class__.__name__,
+            label=view.TAG,
             command=lambda: self.show_target_frame(view)
         )
 

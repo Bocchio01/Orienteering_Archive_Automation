@@ -19,7 +19,8 @@ class Controller(ABCController):
         self.register_module(MapDetailController(self))
 
     def register_module(self, module):
-        self.view.add_view_to_menu_bar(module.view)
+        self.view.add_view_to_menu_bar(view=module.view)
+        self.view.show_target_frame(target_frame=module.view)
 
     def start(self):
         self.view.start_main_loop()
