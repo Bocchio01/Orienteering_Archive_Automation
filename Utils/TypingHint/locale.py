@@ -16,3 +16,16 @@ InfoView = {
         }
     }
 }
+
+MapDetailView = {
+    'id_map': 'id_map',
+    'name': 'name',
+    'scale': 'scale',
+    'equidistance': 'equidistance',
+    'grivation': 'grivation',
+    'geographic_coordinates': 'geographic_coordinates',
+    'export_boundaries': 'export_boundaries',
+    'notes': 'notes',
+    'private': 'private',
+    'author': 'author'
+}

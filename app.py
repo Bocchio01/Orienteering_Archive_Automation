@@ -2,7 +2,8 @@
 
 from MVCmain.view import MainView
 from MVCmain.controller import Controller
-from MVCmain.model import Model
+# from MVCmain.model import Model
+from MVCmain.model_composition import Model
 
 # logging.basicConfig(
 #     level=logging.DEBUG,

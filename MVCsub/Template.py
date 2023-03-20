@@ -1,7 +1,6 @@
 import tkinter as tk
 
 from MVCmain.ABC import ABCController
-from Utils.TypingHint.settings import GUIType
 
 
 class TemplateController:
@@ -10,23 +9,19 @@ class TemplateController:
         self.main_view = main_controller.view
         self.main_model = main_controller.model
 
-        self.view = TemplateView(
-            master=self.main_view.root,
-            opt=self.main_model.get_gui_opt()
-        )
-        self.model = TemplateModel(controller=self)
+        self.view = TemplateView(master=self.main_view.root)
+        self.model = self.main_model.register_module(TemplateModel())
 
 
 class TemplateView(tk.Frame):
-    def __init__(self, master: tk.Tk, opt: GUIType):
+    def __init__(self, master: tk.Tk):
 
         tk.Frame.__init__(
             self,
-            master=master,
-            **opt['main_frame']
+            master=master
         )
 
 
 class TemplateModel:
-    def __init__(self, controller):
-        self.controller = controller
+    def __init__(self):
+        pass

@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter.messagebox import showinfo
 
 
@@ -8,6 +9,15 @@ class MainView:
         self.root = tk.Tk()
         self.root.title("Orienteering_Archieve_Automation")
         self.root.geometry('1000x600')
+
+        # self.style = ttk.Style()
+        # self.style.configure(
+        #     'Main.TFrame',
+        #     borderwidth=5, highlightthickness=3, highlightcolor='red',
+        #     # borderwidth=20,
+        #     # relief=tk.SOLID,
+        #     padding=10
+        # )
 
         self.menu_bar = tk.Menu(self.root, tearoff=0)
 

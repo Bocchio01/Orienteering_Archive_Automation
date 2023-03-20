@@ -1,6 +1,6 @@
 import unittest
 
-from Utils.ocadinterface import *
+from Utils.Interfaces.ocad import *
 
 # get_query(ocdFile=BASE_FILE_PATH, filter=OCADFilter.MAPNOTES.value)
 

@@ -1,12 +1,17 @@
 import json
 from tkinter import font
+from MVCmain.ABC import ABCModel
 
-from MVCmain.observable import Observable
+from Utils.observable import Observable
 from Utils.TypingHint.settings import GUIType
 from Utils.variable import DEBUG
 
+# from MVCsub.ABC import ABCModel
+from MVCsub.info import InfoModel
+from MVCsub.mapsmanagement import MapsManagementModel
 
-class Model:
+
+class Model(ABCModel):
 
     def __init__(self):
         self.settings = Observable({})
@@ -16,6 +21,12 @@ class Model:
 
         self.map_data = Observable()
         self.map_ID_selected = Observable('')
+
+        self.register_module(InfoModel(self))
+        self.register_module(MapsManagementModel(self))
+
+    def register_module(self, module):
+        self.__class__.__dict__[module.__class__.__name__] = module
 
     def get_settings(self) -> dict:
 

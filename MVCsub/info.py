@@ -1,12 +1,12 @@
 from datetime import date
+import json
 import requests
 import tkinter as tk
 from PIL import ImageTk, Image
 from MVCmain.ABC import ABCController
-from Utils.TypingHint.settings import GUIType
-from Utils.multiframetemplate import TwoFrameView
+from Utils.GUIWidgets.customwidgets import MultiFrameView
 from Utils.TypingHint.locale import InfoView as locale
-from Utils.variable import API_URL, PERMISSION_ASKED
+from Utils.variable import API_URL
 from Utils.observable import Observable
 
 
@@ -18,16 +18,16 @@ class InfoController:
 
         self.view = InfoView(
             master=self.main_view.root,
-            opt=self.main_model.get_gui_opt()
         )
-        self.model = InfoModel(controller=self)
 
+        self.model = self.main_model.register_module(InfoModel())
         self.view.login_button.config(
             command=self.model.request_permission_api
         )
 
         self.model.user_data.addCallback(
-            lambda e: self.confirm_login(self.model.user_data.get())
+            lambda e: self.confirm_login(
+                self.model.user_data.get())
         )
 
     def confirm_login(self, user_data: dict):
@@ -44,87 +44,109 @@ class InfoController:
             })
 
 
-class InfoView(TwoFrameView):
+class InfoView(MultiFrameView):
     TAG = 'General Info'
 
-    def __init__(self, master: tk.Tk, opt: GUIType):
+    def __init__(self, master: tk.Tk):
 
-        TwoFrameView.__init__(self, master=master, opt=opt)
+        MultiFrameView.__init__(self, master=master, weights=(1, 10))
+
+        self.user_email = tk.StringVar(value='anonimus@OAA.com')
+        self.user_pwd = tk.StringVar(value='')
 
         image = Image.open(fr'assets/img/ori.png')
         image.thumbnail((300, 300))
         image = ImageTk.PhotoImage(image)
 
         self.logo = tk.Label(
-            self.right_frame,
+            self.frames[1],
             image=image,
-            bg=opt['bg_general']
         )
         self.logo.image = image  # type: ignore
 
         self.name_of_the_app = tk.Label(
-            self.left_frame,
+            self.frames[0],
             text=locale['name_of_the_app'],
-            **opt['title_config'],
         )
 
         self.app_description = tk.Label(
-            self.left_frame,
+            self.frames[0],
             text=locale['app_description'],
             justify=tk.LEFT,
             anchor='w',
-            **opt['text_config']
         )
 
         self.how_to_use = tk.Message(
-            self.left_frame,
+            self.frames[0],
             text=locale['how_to_use'],
             anchor='w',
-            **opt['subtitle_config']
         )
 
-        self.login_button = tk.Button(
-            self.left_frame,
-            text=locale['login_button'],
-            padx=10,
-            pady=10,
-            **opt['button_config']
+        self.form = tk.Frame(self.frames[0])
+
+        self.username_label = tk.Label(self.form, text="Username:")
+
+        self.username_entry = tk.Entry(
+            self.form,
+            textvariable=self.user_email
         )
+
+        self.password_label = tk.Label(self.form, text="Password:")
+
+        self.password_entry = tk.Entry(
+            self.form,
+            textvariable=self.user_pwd,
+            show="*")
+        self.login_button = tk.Button(self.form, text="Login")
+
+        self.username_label.grid(column=0, row=1, sticky=tk.W)
+        self.username_entry.grid(column=1, row=1, sticky=tk.E)
+        self.password_label.grid(column=0, row=2, sticky=tk.W)
+        self.password_entry.grid(column=1, row=2, sticky=tk.E)
+        self.login_button.grid(column=1, row=3, sticky=tk.E)
+
+        # self.ocad_path = tk.Label(
+        #     self.frames[0],
+        #     text=locale['ocad_path'],
+        # )
 
         self.author = tk.Label(
-            self.left_frame,
+            self.frames[0],
             text=locale['author'] + date.today().year.__str__(),
-            **opt['text_config']
         )
 
         self.name_of_the_app.pack(fill=tk.X, pady=15)
         self.app_description.pack(fill=tk.X, padx=30)
         self.how_to_use.pack(fill=tk.BOTH, padx=30, pady=15)
-        self.login_button.pack(fill=tk.Y)
+
+        self.form.pack(fill=tk.X, padx=30, pady=15)
+
         self.author.pack(fill=tk.X, side=tk.BOTTOM, pady=15)
 
         self.logo.pack(fill=tk.BOTH, expand=True)
 
 
 class InfoModel:
-    def __init__(self, controller):
-        self.controller = controller
+    def __init__(self):
         self.user_data = Observable({})
 
     def request_permission_api(self, api_url: str = API_URL):
 
-        # payload = {
-        #     "action": 'UserLogin',
-        #     "data": {
-        #         'token': None,
-        #         'nickname': 'Tommaso' + str(PERMISSION_ASKED),
-        #         'password': str(PERMISSION_ASKED),
+        payload = {
+            'token': 'sdcjnsdkjn',
+            'email': 'tommaso.bocchietti0@gmail.com',
+            'password': 'PWD0',
+        }
 
-        #     }
-        # }
+        response = requests.post(
+            url=api_url,
+            data=json.dumps({
+                'action': 'UserLogin',
+                'data': payload
+            }),
+        )
 
-        response = requests.get(api_url+'?action=UserLogin')
-        print(response.text)
+        # print(response.text)
         response = response.json()
 
         if response['Status'] == 0:
